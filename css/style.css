@@ -1,0 +1,75 @@
+main {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 5em !important;
+}
+
+img {
+    max-height: 600px;
+}
+
+blockquote {
+    border-left-color: #008080;
+}
+
+table img {
+    margin-left: 2em;
+    max-height: 100px;
+    max-width: 100px;
+}
+
+table input {
+    max-width: 100px;
+}
+
+table p {
+    font-weight: bolder;
+    font-size: 1.2em;
+}
+
+.product-col {
+    flex: 49%;
+    max-width: 49%;
+    padding: 0 4px;
+    margin-right: 1em;
+}
+
+.product-col~.product-col {
+    margin-right: 0;
+}
+
+.card {
+    margin-bottom: 1.5em;
+}
+
+.z-depth-1 {
+    margin-top: 3em;
+    padding: 2em;
+}
+
+.p-right {
+    padding-right: 3em;
+}
+
+.m-top {
+    margin-top: 3em;
+}
+
+.m-bot {
+    margin-bottom: 5em;
+}
+
+.quantity {
+    font-size: 1.3em;
+}
+
+.price {
+    font-size: 1.7em;
+}
+
+@media screen and (max-width: 1200px) {
+    .product-col {
+        flex: 100%;
+        max-width: 100%;
+    }
+}

@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Products</title>
+    <title>Product</title>
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1.0'>
     <link rel='shortcut icon' href='http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/wine-icon.png' type='image/x-icon'>
@@ -14,7 +14,7 @@
     <script>window.jQuery || document.write('<script src="js/jquery-3.3.1.min.js"><\/script>');</script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js'></script>
     <script src='js/script.js'></script>
-    <script>$(document).ready(function () { onIndexLoad(); });</script>
+    <script>$(document).ready(function () { onProductLoad(); });</script>
 
 </head>
 
@@ -29,20 +29,59 @@
         </div>
     </nav>
 
-    <div class='parallax-container'>
-        <div class='parallax'>
-            <img src='img/parallax.jpg'>
+    <main class='container m-top'>
+        <div class='horizontal card'>
+            <div class='valign-wrapper card-image'>
+                <img id='product-image' />
+            </div>
+            <div class='card-stacked'>
+                <div class='card-content'>
+                    <input type='hidden' id='product-id'>
+                    <h4 id='product-name'></h4>
+                    <p id='product-description'></p>
+                    <h4 id='product-price'></h4>
+                    <br>
+                    <p>Amount to buy:</p>
+                    <form action='cart.html' onsubmit='addProduct()'>
+                        <div class='row'>
+                            <div class='input-field col s12 m8 l6'>
+                                <i class='material-icons prefix'>add</i>
+                                <input class='validate center' placeholder='Quantity' type='number' min='1' id='quantity' required>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <button class='btn waves-effect waves-light' type='submit'>Add to cart</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
         </div>
-    </div>
 
-    <main class='container'>
+        <div id='reviews'></div>
 
-        <div class='center container'>
-            <h2 class='header center'>Products</h2>
+        <div class='container z-depth-1'>
+            <h4 class='center'>Write your review</h4>
+            <form>
+                <div class='row'>
+                    <div class='input-field col s12'>
+                        <i class='material-icons prefix'>account_circle</i>
+                        <input class='validate' type='text' id='icon_prefix' required>
+                        <label for='icon_prefix'>Username</label>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='input-field col s12'>
+                        <i class='material-icons prefix'>mode_edit</i>
+                        <textarea class='materialize-textarea validate' data-length='1000' id='textarea1' required></textarea>
+                        <label for='textarea1'>Your review</label>
+                    </div>
+                </div>
+                <div class='row center'>
+                    <button class='btn waves-effect waves-light center' type='submit'>Submit review</button>
+                </div>
+            </form>
         </div>
-
-        <div class='product-col'></div>
-        <div class='product-col'></div>
 
     </main>
 
