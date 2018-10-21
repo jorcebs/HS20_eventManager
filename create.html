@@ -3,18 +3,17 @@
 
 <head>
 
-    <title>Shopping Cart</title>
+    <title>Create</title>
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1.0'>
-    <link rel='shortcut icon' href='http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/wine-icon.png' type='image/x-icon'>
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css'>
     <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
+    <link rel='stylesheet' href='css/materialize.min.css'>
     <link rel='stylesheet' href='css/style.css'>
-    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
-    <script>window.jQuery || document.write('<script src="js/jquery-3.3.1.min.js"><\/script>');</script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js'></script>
+    <link rel='shortcut icon' href='img/calendar.png'>
+    <script src='js/materialize.min.js'></script>
+    <script src='js/jquery.min.js'></script>
     <script src='js/script.js'></script>
-    <script>$(document).ready(function () { onCartLoad(); });</script>
+    <script>$(document).ready(function () { onCreateLoad(); });</script>
 
 </head>
 
@@ -22,27 +21,19 @@
 
     <nav class='grey darken-4' role='navigation'>
         <div class='nav-wrapper container'>
-            <a class='brand-logo' href='index.html'>TKILA</a>
-            <a class='right' href='cart.html'>
-                <i class='material-icons'>shopping_cart</i>
-            </a>
+            <a class='brand-logo' href='index.html'>Events</a>
+            <ul class='right'>
+                <li>
+                    <a href='create.html'>Create</a>
+                </li>
+                <li>
+                    <a href='index.html'>Explore</a>
+                </li>
+            </ul>
         </div>
     </nav>
 
-    <main class='container'>
-
-        <div class='center container'>
-            <h2>Shopping Cart</h2>
-        </div>
-
-        <table class='card'>
-            <tbody>
-            </tbody>
-        </table>
-
-        <div class='center container'>
-            <button class='btn waves-effect waves-light m-bot' onclick='removeAll()'></button>
-        </div>
+    <main class='container m-top'>
 
     </main>
 
@@ -52,10 +43,14 @@
 
             <div class='col l6 s12'>
                 <h5 class='white-text'>Lorem Ipsum</h5>
-                <p class='grey-text text-lighten-4'>Dolor sit amet, consectetur adipiscing elit. Aenean pellentesque aliquam feugiat. Aenean vitae purus vel
-                    lectus feugiat accumsan nec sit amet ligula. Fusce et augue aliquam, iaculis tortor et, aliquam velit.
-                    Donec aliquet aliquam ligula quis fringilla. Praesent arcu dui, volutpat vestibulum nisl ac, viverra
-                    ullamcorper magna. Aliquam erat volutpat. Pellentesque hendrerit iaculis metus, eu volutpat ipsum vestibulum
+                <p class='grey-text text-lighten-4'>Dolor sit amet, consectetur adipiscing elit. Aenean pellentesque
+                    aliquam feugiat. Aenean vitae purus vel
+                    lectus feugiat accumsan nec sit amet ligula. Fusce et augue aliquam, iaculis tortor et, aliquam
+                    velit.
+                    Donec aliquet aliquam ligula quis fringilla. Praesent arcu dui, volutpat vestibulum nisl ac,
+                    viverra
+                    ullamcorper magna. Aliquam erat volutpat. Pellentesque hendrerit iaculis metus, eu volutpat ipsum
+                    vestibulum
                     id. Nulla cursus mauris sit amet ipsum tempor, at viverra libero viverra.</p>
             </div>
 

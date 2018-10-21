@@ -8,25 +8,6 @@ img {
     max-height: 600px;
 }
 
-blockquote {
-    border-left-color: #008080;
-}
-
-table img {
-    margin-left: 2em;
-    max-height: 100px;
-    max-width: 100px;
-}
-
-table input {
-    max-width: 100px;
-}
-
-table p {
-    font-weight: bolder;
-    font-size: 1.2em;
-}
-
 .product-col {
     flex: 49%;
     max-width: 49%;

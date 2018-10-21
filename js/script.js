@@ -1,10 +1,7 @@
 'use strict'
 
-// JSON file url
-let jsonUrl = 'https://gist.githubusercontent.com/jorcebs/57038c193314a58260633c7cc89e5e47/raw/58f59d226441cf3545900a4d54faec78c744f053/import.json';
-
 // Initialises cart if it hasn't been set
-$(document).ready(function () { initialiseCart(); });
+$(document).ready(function () { initialiseJSON(); });
 
 // Executed when index.html page is ready
 function onIndexLoad() {
@@ -57,92 +54,8 @@ function onIndexLoad() {
     });
 }
 
-// Executed when product.html page is ready
-function onProductLoad() {
-
-    // Materialize JavaScript component initialization
-    $('textarea').characterCounter();
-
-    // Gets id from url
-    let id = getParam('id');
-
-    // If user accessed the page with no product id set, sets it to 1
-    if (!id) id = 1;
-
-    // Reads json on server
-    $.getJSON(jsonUrl, function (json) {
-
-        // Finds product with id
-        let product = json.find(item => item.id == id);
-
-        // If product was found, display its info
-        if (product) {
-
-            // Sets page title
-            document.title = product.name;
-
-            // Displays product info on page
-            $('#product-id').val(product.id);
-            $('#product-name').html(product.name);
-            $('#product-description').html(product.description);
-            $('#product-price').html('$ ' + product.price);
-            $('#product-image').attr('src', 'img/' + product.id + '.jpeg');
-
-            // Gets products in cart
-            let cart = getCart();
-
-            // If the product exists in the cart already, sets input quantity
-            for (let i = 0; i < cart.length; i++) {
-                if (cart[i].id == product.id) {
-                    $('#quantity').val(cart[i].quantity);
-                    break;
-                }
-            }
-
-            // If there are any reviews...
-            if (product.reviews.length > 0) {
-
-                // Displays review section title
-                let h4 = `<h4 class='center'>Reviews</h4>`;
-                $('#reviews').html(h4);
-
-                // For each product review...
-                for (let i = 0; i < product.reviews.length; i++) {
-
-                    // Gets review info
-                    let user = product.reviews[i].user;
-                    let review = product.reviews[i].review;
-
-                    // Creates html tags with review info
-                    let html = `<a href=''>
-                                    <h6>${user} :</h6>
-                                </a>
-                                <blockquote>
-                                    <p>${review}</p>
-                                </blockquote>`;
-
-                    // Appends review to div
-                    $('#reviews').append(html);
-
-                }
-            }
-        }
-        // If product wasn't found, display error message and overrides page elements
-        else {
-            let html = `<div class='center container'>
-                            <h1 class='m-top'>Product not found</h1>
-                            <h4 class='m-bot'>
-                                Check our available products 
-                                <a href='index.html'>here</a>
-                            <h4/>
-                        </div>`;
-            $('main').html(html);
-        }
-    });
-}
-
-// Executed when cart.html page is ready
-function onCartLoad() {
+// Executed when create.html page is ready
+function onCreateLoad() {
 
     // Gets products in cart
     let cart = getCart();
@@ -243,8 +156,92 @@ function onCartLoad() {
     }
 }
 
+// Executed when product.html page is ready
+function onEventLoad() {
+
+    // Materialize JavaScript component initialization
+    $('textarea').characterCounter();
+
+    // Gets id from url
+    let id = getParam('id');
+
+    // If user accessed the page with no product id set, sets it to 1
+    if (!id) id = 1;
+
+    // Reads json on server
+    $.getJSON(jsonUrl, function (json) {
+
+        // Finds product with id
+        let product = json.find(item => item.id == id);
+
+        // If product was found, display its info
+        if (product) {
+
+            // Sets page title
+            document.title = product.name;
+
+            // Displays product info on page
+            $('#product-id').val(product.id);
+            $('#product-name').html(product.name);
+            $('#product-description').html(product.description);
+            $('#product-price').html('$ ' + product.price);
+            $('#product-image').attr('src', 'img/' + product.id + '.jpeg');
+
+            // Gets products in cart
+            let cart = getCart();
+
+            // If the product exists in the cart already, sets input quantity
+            for (let i = 0; i < cart.length; i++) {
+                if (cart[i].id == product.id) {
+                    $('#quantity').val(cart[i].quantity);
+                    break;
+                }
+            }
+
+            // If there are any reviews...
+            if (product.reviews.length > 0) {
+
+                // Displays review section title
+                let h4 = `<h4 class='center'>Reviews</h4>`;
+                $('#reviews').html(h4);
+
+                // For each product review...
+                for (let i = 0; i < product.reviews.length; i++) {
+
+                    // Gets review info
+                    let user = product.reviews[i].user;
+                    let review = product.reviews[i].review;
+
+                    // Creates html tags with review info
+                    let html = `<a href=''>
+                                    <h6>${user} :</h6>
+                                </a>
+                                <blockquote>
+                                    <p>${review}</p>
+                                </blockquote>`;
+
+                    // Appends review to div
+                    $('#reviews').append(html);
+
+                }
+            }
+        }
+        // If product wasn't found, display error message and overrides page elements
+        else {
+            let html = `<div class='center container'>
+                            <h1 class='m-top'>Product not found</h1>
+                            <h4 class='m-bot'>
+                                Check our available products 
+                                <a href='index.html'>here</a>
+                            <h4/>
+                        </div>`;
+            $('main').html(html);
+        }
+    });
+}
+
 // Adds product to cart. If the product was already added, updates the quantity
-function addProduct() {
+function addEvent() {
 
     // Gets JSON from browser storage
     let cart = getCart();
@@ -256,7 +253,7 @@ function addProduct() {
 
     // If the product exists in the cart already, delets the product and updates cart
     if (cart.some(item => item.id == id)) {
-        removeProduct(id);
+        removeEvent(id);
         cart = getCart();
     }
 
@@ -267,7 +264,7 @@ function addProduct() {
 }
 
 // Removes product from cart
-function removeProduct(id) {
+function removeEvent(id) {
 
     // Gets JSON from browser storage
     let cart = getCart();
