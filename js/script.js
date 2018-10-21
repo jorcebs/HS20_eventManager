@@ -20,7 +20,7 @@ function onIndexLoad() {
 
             // Gets product info
             let id = json[i].id;
-            let name = json[i].name ;
+            let name = json[i].name;
             let description = json[i].description;
             let price = json[i].price;
 
@@ -259,7 +259,7 @@ function addEvent() {
 
     // Adds new product to cart and saves cart
     cart[cart.length] = product;
-    saveCart(cart);
+    saveEvents(cart);
 
 }
 
@@ -278,7 +278,7 @@ function removeEvent(id) {
     }
 
     // Saves cart and reloads cart
-    saveCart(cart);
+    saveEvents(cart);
     location.reload();
 
 }
@@ -309,17 +309,17 @@ function getParam(name) {
     }
 }
 
-// Gets cart JSON object
-function getCart() {
-    return JSON.parse(localStorage.getItem('cart'));
+// Gets JSON object
+function getEvents() {
+    return JSON.parse(localStorage.getItem('events'));
 }
 
-// Saves cart JSON object
-function saveCart(cart) {
-    localStorage.setItem('cart', JSON.stringify(cart));
+// Saves JSON object
+function saveEvents(events) {
+    localStorage.setItem('events', JSON.stringify(events));
 }
 
-// Initialises cart if it hasn't been set
-function initialiseCart() {
-    if (!localStorage.getItem('cart')) localStorage.setItem('cart', '[]');
+// Initialises JSON if it hasn't been set
+function initialiseJSON() {
+    if (!localStorage.getItem('events')) localStorage.setItem('events', '[]');
 }

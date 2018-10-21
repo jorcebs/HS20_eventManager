@@ -3,15 +3,15 @@
 
 <head>
 
-    <title>Event name</title>
+    <title>Event</title>
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1.0'>
     <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
     <link rel='stylesheet' href='css/materialize.min.css'>
     <link rel='stylesheet' href='css/style.css'>
     <link rel='shortcut icon' href='img/calendar.png'>
-    <script src='js/materialize.min.js'></script>
     <script src='js/jquery.min.js'></script>
+    <script src='js/materialize.min.js'></script>
     <script src='js/script.js'></script>
     <script>$(document).ready(function () { onEventLoad(); });</script>
 
@@ -34,6 +34,7 @@
     </nav>
 
     <main class='container m-top'>
+
         <div class='horizontal card'>
             <div class='valign-wrapper card-image'>
                 <img id='product-image' />
@@ -61,31 +62,6 @@
 
                 </div>
             </div>
-        </div>
-
-        <div id='reviews'></div>
-
-        <div class='container z-depth-1'>
-            <h4 class='center'>Write your review</h4>
-            <form>
-                <div class='row'>
-                    <div class='input-field col s12'>
-                        <i class='material-icons prefix'>account_circle</i>
-                        <input class='validate' type='text' id='icon_prefix' required>
-                        <label for='icon_prefix'>Username</label>
-                    </div>
-                </div>
-                <div class='row'>
-                    <div class='input-field col s12'>
-                        <i class='material-icons prefix'>mode_edit</i>
-                        <textarea class='materialize-textarea validate' data-length='1000' id='textarea1' required></textarea>
-                        <label for='textarea1'>Your review</label>
-                    </div>
-                </div>
-                <div class='row center'>
-                    <button class='btn waves-effect waves-light center' type='submit'>Submit review</button>
-                </div>
-            </form>
         </div>
 
     </main>
