@@ -73,12 +73,16 @@
             <div class='row file-field input-field'>
                 <div class='btn'>
                     <span>Upload an image</span>
-                    <input type='file' accept='.jpg,.jpeg,.png' required>
+                    <input type='file' accept='.jpg,.jpeg,.png' onchange='loadImage(this)' id='image' required>
                 </div>
                 <div class='file-path-wrapper'>
-                    <input type='text' placeholder='Select an image of the event' id='image' class='file-path validate'>
+                    <input type='text' placeholder='Select an image of the event' class='file-path validate'>
                 </div>
             </div>
+
+            <div class='row m-top'>
+                    <img id='preview' alt='Image preview.'>
+                </div>
 
             <div class='row m-top'>
                 <h4>Attendats</h4>

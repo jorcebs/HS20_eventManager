@@ -7,7 +7,7 @@ $(document).ready(function () {
     initializeMaterialize();
 
     // localStorage.setItem('json', '[]');
-    console.log(getJSON());
+    // console.log(getJSON());
 
 });
 
@@ -36,7 +36,7 @@ function onIndexLoad() {
         // Creates html with object info
         let html = `<div class='horizontal hoverable card'>
                         <div class='valign-wrapper card-image'>
-                            <img src='img/calendar.png'>
+                            <img src='data:image/png;base64, ${image}'>
                         </div>
                         <div class='card-stacked'>
                             <div class='card-content'>
@@ -88,7 +88,8 @@ function onEventLoad() {
         $('#date').val(object.date);
         $('#address').val(object.address);
         $('#description').val(object.description);
-        $('#image').val(object.image);
+        $('#preview').attr('src', `data:image/png;base64, ${object.image}`);
+        $('#preview').show();
         displayAttendants(object.attendants);
 
         // Updates text fields
@@ -170,7 +171,7 @@ function add() {
     let date = $('#date').val();
     let address = $('#address').val();
     let description = $('#description').val();
-    let image = $('#image').val();
+    let image = getBase64Image(document.getElementById('preview'));
     let attendants = fixAttendants($('div.chip[tabindex="0"]').text());
 
     // Creates object
@@ -190,8 +191,6 @@ function add() {
 
     // Saves JSON
     saveJSON(json);
-
-    console.log(json);
 
 }
 
@@ -281,5 +280,36 @@ function displayAttendants(attendants) {
             data: json
         });
     }
+}
+
+// Displays uploaded image
+function loadImage(input) {
+
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        // Displays image
+        reader.onload = function (e) {
+            $('#preview').attr('src', e.target.result);
+            $('#preview').show();
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+// Gets image string
+function getBase64Image(img) {
+
+    let canvas = document.createElement('canvas');
+    canvas.width = img.width;
+    canvas.height = img.height;
+
+    let ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0);
+
+    let dataURL = canvas.toDataURL('image/png');
+
+    return dataURL.replace(/^data:image\/(png|jpg);base64,/, '');
 
 }

@@ -8,6 +8,12 @@ img {
     max-height: 600px;
 }
 
+#preview {
+    max-width: 500px;
+    max-height: 500px;
+    display: none;
+}
+
 .small-text{
     font-size: 0.8em;
     color: gray;
