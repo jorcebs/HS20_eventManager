@@ -1,325 +1,285 @@
 'use strict'
 
-// Initialises cart if it hasn't been set
-$(document).ready(function () { initialiseJSON(); });
+// Initializes JSON and Materialize Javascript components
+$(document).ready(function () {
+
+    initializeJSON();
+    initializeMaterialize();
+
+    // localStorage.setItem('json', '[]');
+    console.log(getJSON());
+
+});
 
 // Executed when index.html page is ready
 function onIndexLoad() {
 
-    // Materialize JavaScript component initialization
-    $('.parallax').parallax();
-
-    // Used to alternate between the two responsive product columns
+    // Used to alternate between the two responsive columns
     let columnSwitch = 1;
 
-    // Reads json on server
-    $.getJSON(jsonUrl, function (json) {
+    // Gets JSON from local storage
+    let json = getJSON();
 
-        // For each product in json...
-        for (let i = 0; i < json.length; i++) {
+    // For each object in JSON...
+    for (let i = 0; i < json.length; i++) {
 
-            // Gets product info
-            let id = json[i].id;
-            let name = json[i].name;
-            let description = json[i].description;
-            let price = json[i].price;
+        // Gets info
+        let id = json[i].id;
+        let title = json[i].title;
+        let creator = json[i].creator;
+        let date = json[i].date;
+        let address = json[i].address;
+        let description = json[i].description;
+        let image = json[i].image;
+        let attendants = json[i].attendants.length;
 
-            // Creates html tags with product info
-            let html = `<div class='horizontal hoverable card'>
-                            <div class='valign-wrapper card-image'>
-                                <img src='img/${id}.jpeg'>
+        // Creates html with object info
+        let html = `<div class='horizontal hoverable card'>
+                        <div class='valign-wrapper card-image'>
+                            <img src='img/calendar.png'>
+                        </div>
+                        <div class='card-stacked'>
+                            <div class='card-content'>
+                                <h4>${title}</h4>
+                                <p class='small-text'>Organized by ${creator}, ${attendants} people coming</p>
+                                <p class='big-text'>Taking place on ${date} at ${address}</p>
+                                <p class='description'>${description}</p>
                             </div>
-                            <div class='card-stacked'>
-                                <div class='card-content'>
-                                    <h5>${name}</h5>
-                                    <p>${description}</p>
-                                    <h4>$${price}</h4>
-                                </div>
-                                <div class='card-action'>
-                                    <a href='product.html?id=${id}'>Buy</a>
-                                </div>
+                            <div class='card-action'>
+                                <a href='event.html?id=${id}'>See details</a>
                             </div>
-                        </div>`;
-
-            // Appends product to responsive columns
-            if (columnSwitch > 0)
-                $('.product-col:first').append(html);
-            else
-                $('.product-col:eq(1)').append(html);
-
-            // Alternates column
-            columnSwitch *= -1;
-
-        }
-    });
-}
-
-// Executed when create.html page is ready
-function onCreateLoad() {
-
-    // Gets products in cart
-    let cart = getCart();
-
-    // If there are any products in the cart
-    if (cart.length > 0) {
-
-        // Reads json on server
-        $.getJSON(jsonUrl, function (json) {
-
-            // Declares product, html-building, and total cost variables
-            let product, id, name, quantity, price, html, total;
-
-            // Sets total to 0
-            total = 0;
-
-            // For each product in cart...
-            for (let i = 0; i < cart.length; i++) {
-
-                // Finds product with id
-                product = json.find(item => item.id == cart[i].id);
-
-                // Gets product info and calculates total
-                id = cart[i].id;
-                name = product.name;
-                quantity = cart[i].quantity;
-                price = (product.price * quantity).toFixed(2);
-                total += parseFloat(price);
-
-                // Creates html tags with product info
-                html = `<tr>
-                            <td>
-                                <a href='product.html?id=${id}'>
-                                    <img src='img/${id}.jpeg'>
-                                </a>
-                            </td>
-                            <td>
-                                <a href='product.html?id=${id}'>
-                                    <p>${name}</p>
-                                 </a>
-                            </td>
-                            <td class='quantity'>${quantity} ${quantity == 1 ? 'bottle' : 'bottles'}</td>
-                            <td class='price'>$ ${price}</td>
-                            <td>
-                                <a href='product.html?id=${id}'>
-                                    <i class='black-text material-icons'>edit</i>
-                                </a>
-                            </td>
-                            <td class='p-right'>
-                                <a href='javascript:removeProduct(${id})'>
-                                    <i class='black-text material-icons'>delete</i>
-                                </a>
-                            </td>
-                        </tr>`;
-
-                // Appends product to table
-                $('tbody').append(html);
-
-            }
-
-            // Builds shipping cost row
-            html = `<tr>
-                        <td>
-                            <img src='img/delivery.png'>
-                        </td>
-                        <td>
-                            <p>Shipping Cost</p>    
-                        </td>
-                        <td></td>
-                        <td class='price'>$ 15.00</td>
-                        <td></td>
-                        <td></td>
-                    </tr>`;
-
-            // Appends shipping cost to end of table
-            $('tbody').append(html);
-
-            // Adds shipping cost to total and fixes the number of decimals
-            total = (total + 15).toFixed(2);
-
-            // Sets button name with total price
-            $('button').html(`Buy everything ($${total})`);
-
-        });
-    }
-    // If there are no products in the cart, displays message and overrides page elements
-    else {
-        let html = `<div class='center container m-top'>
-                        <h1>Your cart is empty</h1>
-                        <img src='img/empty-cart.png'/>
-                        <h4 class='m-bot'>
-                            Try adding some 
-                            <a href='index.html'>products</a>
-                            to it
-                        <h4/>
+                        </div>
                     </div>`;
-        $('main').html(html);
+
+        // Appends html to responsive columns
+        if (columnSwitch > 0)
+            $('.responsive-column:first').append(html);
+        else
+            $('.responsive-column:eq(1)').append(html);
+
+        // Alternates column
+        columnSwitch *= -1;
+
     }
+
 }
 
-// Executed when product.html page is ready
+// Executed when event.html page is ready
 function onEventLoad() {
 
-    // Materialize JavaScript component initialization
-    $('textarea').characterCounter();
-
-    // Gets id from url
+    // Gets id from url and JSON from local storage
     let id = getParam('id');
+    let json = getJSON();
 
-    // If user accessed the page with no product id set, sets it to 1
-    if (!id) id = 1;
+    // Finds object with id
+    let object = json.find(item => item.id == id);
 
-    // Reads json on server
-    $.getJSON(jsonUrl, function (json) {
+    // If object was found, display its info
+    if (object) {
 
-        // Finds product with id
-        let product = json.find(item => item.id == id);
+        // Sets page title
+        document.title = object.title;
 
-        // If product was found, display its info
-        if (product) {
+        // Displays object info on page
+        $('#id').val(object.id);
+        $('#title').val(object.title);
+        $('#event-title').html(object.title);
+        $('#creator').val(object.creator);
+        $('#date').val(object.date);
+        $('#address').val(object.address);
+        $('#description').val(object.description);
+        $('#image').val(object.image);
+        displayAttendants(object.attendants);
 
-            // Sets page title
-            document.title = product.name;
+        // Updates text fields
+        M.updateTextFields();
 
-            // Displays product info on page
-            $('#product-id').val(product.id);
-            $('#product-name').html(product.name);
-            $('#product-description').html(product.description);
-            $('#product-price').html('$ ' + product.price);
-            $('#product-image').attr('src', 'img/' + product.id + '.jpeg');
+    }
+    // If object wasn't found, display error message and overrides page elements
+    else {
 
-            // Gets products in cart
-            let cart = getCart();
+        let html = `<div class='center container'>
+                        <h1>Event not found</h1>
+                        <h4 class='m-bot'>
+                            Check out available events
+                            <a href='index.html'>here</a>
+                        <h4/>
+                    </div>`;
 
-            // If the product exists in the cart already, sets input quantity
-            for (let i = 0; i < cart.length; i++) {
-                if (cart[i].id == product.id) {
-                    $('#quantity').val(cart[i].quantity);
-                    break;
-                }
-            }
+        $('main').html(html);
 
-            // If there are any reviews...
-            if (product.reviews.length > 0) {
+    }
+}
 
-                // Displays review section title
-                let h4 = `<h4 class='center'>Reviews</h4>`;
-                $('#reviews').html(h4);
+// Initializes JSON if it hasn't been
+function initializeJSON() {
+    if (!localStorage.getItem('json')) localStorage.setItem('json', '[]');
+}
 
-                // For each product review...
-                for (let i = 0; i < product.reviews.length; i++) {
+// Materialize JavaScript component initialization
+function initializeMaterialize() {
 
-                    // Gets review info
-                    let user = product.reviews[i].user;
-                    let review = product.reviews[i].review;
-
-                    // Creates html tags with review info
-                    let html = `<a href=''>
-                                    <h6>${user} :</h6>
-                                </a>
-                                <blockquote>
-                                    <p>${review}</p>
-                                </blockquote>`;
-
-                    // Appends review to div
-                    $('#reviews').append(html);
-
-                }
-            }
-        }
-        // If product wasn't found, display error message and overrides page elements
-        else {
-            let html = `<div class='center container'>
-                            <h1 class='m-top'>Product not found</h1>
-                            <h4 class='m-bot'>
-                                Check our available products 
-                                <a href='index.html'>here</a>
-                            <h4/>
-                        </div>`;
-            $('main').html(html);
+    $('textarea').characterCounter();
+    $('.datepicker').datepicker();
+    $('.parallax').parallax();
+    $('.modal').modal();
+    $('.chips').chips();
+    $('.chips-placeholder').chips({
+        placeholder: 'Friends\' names'
+    });
+    $('.chips-autocomplete').chips({
+        autocompleteOptions: {
+            data: {
+                'jorcebs': null,
+                'lorem': null,
+                'ipsum': null,
+                'dolor': null,
+                'sit': null,
+                'amet': null,
+                'consectetur': null,
+                'adipiscing': null,
+                'elit': null
+            },
+            limit: Infinity,
+            minLength: 1
         }
     });
-}
-
-// Adds product to cart. If the product was already added, updates the quantity
-function addEvent() {
-
-    // Gets JSON from browser storage
-    let cart = getCart();
-
-    // Gets product info and creates object
-    let id = $('#product-id').val();
-    let quantity = $('#quantity').val();
-    let product = { "id": id, "quantity": quantity };
-
-    // If the product exists in the cart already, delets the product and updates cart
-    if (cart.some(item => item.id == id)) {
-        removeEvent(id);
-        cart = getCart();
-    }
-
-    // Adds new product to cart and saves cart
-    cart[cart.length] = product;
-    saveEvents(cart);
 
 }
 
-// Removes product from cart
-function removeEvent(id) {
+// Gets JSON object
+function getJSON() {
+    return JSON.parse(localStorage.getItem('json'));
+}
 
-    // Gets JSON from browser storage
-    let cart = getCart();
+// Saves JSON
+function saveJSON(json) {
+    localStorage.setItem('json', JSON.stringify(json));
+}
 
-    // Finds product and delets it
-    for (let i = cart.length - 1; i >= 0; i--) {
-        if (cart[i].id == id) {
-            cart.splice(i, 1);
+// Adds object to JSON
+function add() {
+
+    // Gets JSON from local storage
+    let json = getJSON();
+
+    // Gets object info
+    let id = json.length + 1;
+    let title = $('#title').val();
+    let creator = $('#creator').val();
+    let date = $('#date').val();
+    let address = $('#address').val();
+    let description = $('#description').val();
+    let image = $('#image').val();
+    let attendants = fixAttendants($('div.chip[tabindex="0"]').text());
+
+    // Creates object
+    let object = {
+        'id': id,
+        'title': title,
+        'creator': creator,
+        'date': date,
+        'address': address,
+        'description': description,
+        'image': image,
+        'attendants': attendants
+    };
+
+    // Adds object to JSON
+    json[json.length] = object;
+
+    // Saves JSON
+    saveJSON(json);
+
+    console.log(json);
+
+}
+
+// Removes object from JSON using id
+function remove(id) {
+
+    // Gets JSON from local storage
+    let json = getJSON();
+
+    // Finds object and delets it
+    for (let i = json.length - 1; i >= 0; i--) {
+        if (json[i].id == id) {
+            json.splice(i, 1);
             break;
         }
     }
 
-    // Saves cart and reloads cart
-    saveEvents(cart);
+    // Saves JSON and reloads page
+    saveJSON(json);
     location.reload();
 
 }
 
-// Removes all products from cart
+// Updates object info
+function update() {
+
+    // Gets object id
+    let id = $('#id').val();
+
+    // Delets object and adds it again
+    remove(id);
+    add(id);
+
+}
+
+// Removes all objects in JSON and reloads page
 function removeAll() {
-    localStorage.setItem('cart', '[]');
+    localStorage.setItem('json', '[]');
     location.reload();
 }
 
-// Gets param from url
+// Gets parameter from url
 function getParam(name) {
 
-    // Gets all url values
-    let url = window.location.search.substring(1);
-    let values = url.split('&');
+    // Gets all parameters from url
+    let params = window.location.search.substring(1).split('&');
 
-    // For each value in url...
-    for (let i = 0; i < values.length; i++) {
+    // For each parameter in url...
+    for (let i = 0; i < params.length; i++) {
 
-        // Get individual value
-        let value = values[i].split('=');
+        // Gets individual parameter
+        let param = params[i].split('=');
 
-        // Compares param name with searched name. If it's found, returns its value
-        if (value[0] == name)
-            return value[1];
+        // If it's the parameter we're looking for, returns its value
+        if (param[0] == name)
+            return param[1];
 
     }
 }
 
-// Gets JSON object
-function getEvents() {
-    return JSON.parse(localStorage.getItem('events'));
+// Breaks up text into separate attendats usernames
+function fixAttendants(text) {
+    return text.split('close').filter(function (el) { return el.length != 0 });
 }
 
-// Saves JSON object
-function saveEvents(events) {
-    localStorage.setItem('events', JSON.stringify(events));
-}
+// Creates JSON for chip tags usage
+function displayAttendants(attendants) {
 
-// Initialises JSON if it hasn't been set
-function initialiseJSON() {
-    if (!localStorage.getItem('events')) localStorage.setItem('events', '[]');
+    // If there is at least one attendant
+    if (attendants.length > 0) {
+
+        // Creates json object
+        let json = [];
+
+        // For each attendant...
+        for (let i = 0; i < attendants.length; i++) {
+
+            // Creates object
+            let object = { tag: attendants[i] };
+
+            // Adds object to JSON
+            json[json.length] = object;
+        }
+
+        // Displays attendants
+        $('.chips-initial').chips({
+            data: json
+        });
+    }
+
 }

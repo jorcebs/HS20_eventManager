@@ -1,4 +1,4 @@
-main {
+.flex {
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 5em !important;
@@ -8,14 +8,25 @@ img {
     max-height: 600px;
 }
 
-.product-col {
+.small-text{
+    font-size: 0.8em;
+    color: gray;
+}
+
+.big-text{
+    font-size: 1.4em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+.responsive-column {
     flex: 49%;
     max-width: 49%;
     padding: 0 4px;
     margin-right: 1em;
 }
 
-.product-col~.product-col {
+.responsive-column~.responsive-column {
     margin-right: 0;
 }
 
@@ -37,7 +48,7 @@ img {
 }
 
 .m-bot {
-    margin-bottom: 5em;
+    margin-bottom: 2em;
 }
 
 .quantity {
@@ -49,7 +60,7 @@ img {
 }
 
 @media screen and (max-width: 1200px) {
-    .product-col {
+    .responsive-column {
         flex: 100%;
         max-width: 100%;
     }

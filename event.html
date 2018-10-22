@@ -33,36 +33,64 @@
         </div>
     </nav>
 
-    <main class='container m-top'>
+    <main class='container'>
 
-        <div class='horizontal card'>
-            <div class='valign-wrapper card-image'>
-                <img id='product-image' />
-            </div>
-            <div class='card-stacked'>
-                <div class='card-content'>
-                    <input type='hidden' id='product-id'>
-                    <h4 id='product-name'></h4>
-                    <p id='product-description'></p>
-                    <h4 id='product-price'></h4>
-                    <br>
-                    <p>Amount to buy:</p>
-                    <form action='cart.html' onsubmit='addProduct()'>
-                        <div class='row'>
-                            <div class='input-field col s12 m8 l6'>
-                                <i class='material-icons prefix'>add</i>
-                                <input class='validate center' placeholder='Quantity' type='number' min='1' id='quantity'
-                                    required>
-                            </div>
-                        </div>
-                        <div class='row'>
-                            <button class='btn waves-effect waves-light' type='submit'>Add to cart</button>
-                        </div>
-                    </form>
+        <h2 id='event-title'>Event</h2>
 
+        <form action='index.html' onsubmit='update()'>
+
+            <input type='hidden' id='id'>
+
+            <div class='row'>
+                <div class='input-field col s12 m6'>
+                    <input class='validate valid' id='title' type='text' required>
+                    <label for='title'>Title</label>
+                </div>
+                <div class='input-field col s12 m6'>
+                    <input class='validate valid' id='creator' type='text' required>
+                    <label for='creator' active>Creator's name</label>
                 </div>
             </div>
-        </div>
+
+            <div class='row'>
+                <div class='input-field col s12 m6'>
+                    <input class='datepicker' id='date' type='text' readonly required>
+                    <label for='date'>Will be held on</label>
+                </div>
+                <div class='input-field col s12 m6'>
+                    <input class='validate valid' id='address' type='text' required>
+                    <label for='address'>At</label>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='input-field col s12'>
+                    <textarea class='materialize-textarea validate valid' id='description' data-length='500' required></textarea>
+                    <label for='description'>Description</label>
+                </div>
+            </div>
+
+            <div class='row file-field input-field'>
+                <div class='btn'>
+                    <span>Upload an image</span>
+                    <input type='file' accept='.jpg,.jpeg,.png' required>
+                </div>
+                <div class='file-path-wrapper'>
+                    <input type='text' placeholder='Select an image of the event' id='image' class='file-path validate'>
+                </div>
+            </div>
+
+            <div class='row m-top'>
+                <h4>Attendats</h4>
+                <div class='chips chips-initial chips-placeholder chips-autocomplete' id='attendats'></div>
+            </div>
+
+
+            <div class='row'>
+                <button class='btn waves-effect waves-light m-bot right' type='submit'>Save changes</button>
+            </div>
+
+        </form>
 
     </main>
 

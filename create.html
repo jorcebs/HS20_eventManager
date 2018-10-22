@@ -13,7 +13,6 @@
     <script src='js/jquery.min.js'></script>
     <script src='js/materialize.min.js'></script>
     <script src='js/script.js'></script>
-    <script>$(document).ready(function () { onCreateLoad(); });</script>
 
 </head>
 
@@ -33,7 +32,61 @@
         </div>
     </nav>
 
-    <main class='container m-top'>
+    <main class='container'>
+
+        <h2>Create an event</h2>
+
+        <form action='index.html' onsubmit='add()'>
+
+            <div class='row'>
+                <div class='input-field col s12 m6'>
+                    <input class='validate' id='title' type='text' required>
+                    <label for='title'>Title</label>
+                </div>
+                <div class='input-field col s12 m6'>
+                    <input class='validate' id='creator' type='text' required>
+                    <label for='creator'>Creator's name</label>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='input-field col s12 m6'>
+                    <input class='datepicker' id='date' type='text' readonly required>
+                    <label for='date'>Will be held on</label>
+                </div>
+                <div class='input-field col s12 m6'>
+                    <input class='validate' id='address' type='text' required>
+                    <label for='address'>At</label>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='input-field col s12'>
+                    <textarea class='materialize-textarea validate' id='description' data-length='500' required></textarea>
+                    <label for='description'>Description</label>
+                </div>
+            </div>
+
+            <div class='row file-field input-field'>
+                <div class='btn'>
+                    <span>Upload an image</span>
+                    <input type='file' accept='.jpg,.jpeg,.png' id='image' required>
+                </div>
+                <div class='file-path-wrapper'>
+                    <input type='text' placeholder='Select an image of the event' class='file-path validate'>
+                </div>
+            </div>
+
+            <div class='row m-top'>
+                <h4>Attendats</h4>
+                <div class='chips chips-placeholder chips-autocomplete' id='attendats'></div>
+            </div>
+
+            <div class='row'>
+                <button class='btn waves-effect waves-light m-bot right' type='submit'>Publish</button>
+            </div>
+
+        </form>
 
     </main>
 
